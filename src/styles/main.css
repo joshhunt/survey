@@ -4,5 +4,40 @@ html,
 body {
   color: var(--color-black);
   font-family: var(--font);
-  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app,
+.page {
+  height: 100%;
+}
+
+.page {
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr;
+}
+
+.nav {
+  background: var(--color-black);
+  padding: 16px;
+}
+
+.icon {
+  width: 18px;
+}
+
+.questions,
+.filters {
+  padding: 16px;
+}
+
+.questions {
+  background: var(--color-subtle);
 }
