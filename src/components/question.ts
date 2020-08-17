@@ -9,7 +9,7 @@ export default function question(title: string, questionData: Question) {
       <div>
         <h3>${questionData.title}</h3>
 
-        <ul>
+        <ul class="hello">
           ${questionData.answers.map(
             (answer) => html`
               <li>

@@ -25,3 +25,19 @@ export interface SurveyResults {
   questions: Question[];
   respondent_demographics: { [respondentId: string]: Demographics };
 }
+
+export interface FilterOptions {
+  name: string;
+  display: string;
+}
+
+export interface Filter {
+  name: string;
+  display: string;
+  options: FilterOptions[];
+}
+
+export interface Filters {
+  // Maybe this should just be a kv lookup?
+  demographics: Filter[];
+}
