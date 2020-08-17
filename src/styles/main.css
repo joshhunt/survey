@@ -14,30 +14,30 @@ body {
 
 html,
 body,
-#app,
-.page {
+:global(#app),
+:global(.page) {
   height: 100%;
 }
 
-.page {
+:global(.page) {
   display: grid;
-  grid-template-columns: 50px 1fr 1fr;
+  grid-template-columns: 50px 2fr 1fr;
 }
 
-.nav {
+:global(.nav) {
   background: var(--color-black);
   padding: 16px;
 }
 
-.icon {
+:global(.icon) {
   width: 18px;
 }
 
-.questions,
-.filters {
+:global(.questions),
+:global(.filters) {
   padding: 16px;
 }
 
-.questions {
+:global(.questions) {
   background: var(--color-subtle);
 }

@@ -1,6 +1,9 @@
 import { Filter, SurveyResults } from "@/types";
 import html from "@/html";
 
+import s from "./filters.css"; // ???
+import option from "./option";
+
 function sumDemographics(
   respondentDemographics: SurveyResults["respondent_demographics"]
 ) {
@@ -30,22 +33,20 @@ export default function filters(
   const demographicCounts = sumDemographics(respondentDemographics);
 
   return html`
-    <div>
+    <div class="${s.root}">
       <h2>Filters</h2>
 
-      <div>
+      <div class=${s.filters}>
         ${filterData.map(
           (filter) => html`
             <div>
               <h3>${filter.display}</h3>
 
-              ${filter.options.map(
-                (option) =>
-                  html`<div>
-                    ${option.display}:
-                    ${demographicCounts[filter.name][option.name].toString()}
-                  </div>`
-              )}
+              <div class=${s.options}>
+                ${filter.options.map((data) =>
+                  option(filter.name, data, demographicCounts)
+                )}
+              </div>
             </div>
           `
         )}

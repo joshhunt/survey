@@ -1,0 +1,26 @@
+.root {
+  position: relative;
+}
+
+.option {
+  background: white;
+  border: 1px solid #e8ecf0;
+  padding: 8px;
+  display: block;
+  cursor: pointer;
+}
+
+.checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox:checked + .option {
+  background: #e2e6eb;
+  border-color: #c7cfd9;
+}

@@ -1,0 +1,10 @@
+.filters {
+  background: #f3f5f8;
+  padding: 16px;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  grid-gap: 8px;
+}

@@ -26,7 +26,7 @@ export interface SurveyResults {
   respondent_demographics: { [respondentId: string]: Demographics };
 }
 
-export interface FilterOptions {
+export interface FilterOption {
   name: string;
   display: string;
 }
@@ -34,7 +34,7 @@ export interface FilterOptions {
 export interface Filter {
   name: string;
   display: string;
-  options: FilterOptions[];
+  options: FilterOption[];
 }
 
 export interface Filters {
