@@ -8,3 +8,18 @@
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   grid-gap: 8px;
 }
+
+.heading,
+.title {
+  font-weight: 400;
+}
+
+.heading {
+  text-align: center;
+}
+
+.title {
+  color: #778faa;
+  margin-bottom: 8px;
+  font-size: 14px;
+}

@@ -35,13 +35,13 @@ export default function filters(
 
   return html`
     <div class="${s.root}">
-      <h2>Filters</h2>
+      <h2 class="${s.heading}">Filters</h2>
 
       <div class=${s.filters}>
         ${filterData.map(
           (filter) => html`
             <div>
-              <h3>${filter.display}</h3>
+              <h3 class="${s.title}">${filter.display}</h3>
 
               <div class=${s.options}>
                 ${filter.options.map((data) =>

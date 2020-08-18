@@ -67,3 +67,4 @@ eslint-data
 /dist/*
 /config.json
 /.cache-loader
+README.md
