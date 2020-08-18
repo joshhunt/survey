@@ -3,6 +3,7 @@ import html from "@/html";
 import answer from "./answer";
 
 import s from "./question.css";
+import { State } from "@/state";
 
 function filterRespondents(
   respondentDemographics: SurveyResults["respondent_demographics"],
@@ -25,10 +26,9 @@ function filterRespondents(
 }
 
 export default function question(
-  title: string,
   questionData: Question,
   respondentDemographics: SurveyResults["respondent_demographics"],
-  filters: { [name: string]: string }
+  filters: State["activeFilters"]
 ) {
   const activeRespondents = filterRespondents(respondentDemographics, filters);
 
@@ -37,18 +37,14 @@ export default function question(
   const totalCount = Object.values(respondentDemographics).length;
 
   return html`
-    <div class="${s.root}">
-      <h2 class="${s.heading}">${title}</h2>
+    <div class="${s.question}">
+      <h3 class="${s.questionTitle}">${questionData.title}</h3>
 
-      <div class="${s.question}">
-        <h3 class="${s.questionTitle}">${questionData.title}</h3>
-
-        <ul class="${s.answers}">
-          ${questionData.answers.map((answerData) =>
-            answer(answerData, activeRespondents, totalActiveCount, totalCount)
-          )}
-        </ul>
-      </div>
+      <ul class="${s.answers}">
+        ${questionData.answers.map((answerData) =>
+          answer(answerData, activeRespondents, totalActiveCount, totalCount)
+        )}
+      </ul>
     </div>
   `;
 }

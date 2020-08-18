@@ -1,25 +1,19 @@
-import "styles/main.css";
-
 import { getSurveyResults, getFilterDefinition } from "./api";
-import question from "./components/question";
-import filters from "./components/filters";
 import { renderHTML } from "./dom";
 import { subscribe, setState, State } from "./state";
+import survey from "./components/survey";
+import filters from "./components/filters";
 import { connectOnOptionChange } from "./components/option";
 
-function renderResults(state: State) {
+import "styles/main.css";
+
+function renderSurvey(state: State) {
   if (!state.survey) {
     return;
   }
 
-  const questionEl = question(
-    state.survey.title,
-    state.survey.questions[0],
-    state.survey.respondent_demographics,
-    state.activeFilters
-  );
-
-  renderHTML(questionEl, ".js-questions");
+  const surveyEl = survey(state.survey, state.activeFilters);
+  renderHTML(surveyEl, ".js-questions");
 }
 
 function renderFilters(state: State) {
@@ -32,8 +26,8 @@ function renderFilters(state: State) {
     state.survey.respondent_demographics,
     state.activeFilters
   );
-  renderHTML(filtersEl, ".js-filters");
 
+  renderHTML(filtersEl, ".js-filters");
   connectOnOptionChange(state);
 }
 
@@ -42,7 +36,7 @@ async function main() {
   getFilterDefinition().then((data) => setState({ filterDefinition: data }));
 
   subscribe((state) => {
-    renderResults(state);
+    renderSurvey(state);
     renderFilters(state);
   });
 }
