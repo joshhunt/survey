@@ -6,6 +6,7 @@ body {
   font-family: var(--font);
   padding: 0;
   margin: 0;
+  font-size: 14px;
 }
 
 * {
@@ -17,6 +18,7 @@ body,
 :global(#app),
 :global(.page) {
   height: 100%;
+  font-family: var(--font);
 }
 
 :global(.page) {

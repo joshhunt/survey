@@ -1,21 +1,51 @@
-import { Question } from "@/types";
+import { Question, SurveyResults } from "@/types";
 import html from "@/html";
+import answer from "./answer";
 
-export default function question(title: string, questionData: Question) {
+import s from "./question.css";
+
+function filterRespondents(
+  respondentDemographics: SurveyResults["respondent_demographics"],
+  filters: { [name: string]: string }
+) {
+  const active: string[] = [];
+  const filtersArr = Object.entries(filters);
+
+  Object.entries(respondentDemographics).forEach(([id, demographics]) => {
+    const matches = filtersArr.every(
+      ([key, value]) => demographics[key] === value
+    );
+
+    if (matches) {
+      active.push(id);
+    }
+  });
+
+  return active;
+}
+
+export default function question(
+  title: string,
+  questionData: Question,
+  respondentDemographics: SurveyResults["respondent_demographics"],
+  filters: { [name: string]: string }
+) {
+  const activeRespondents = filterRespondents(respondentDemographics, filters);
+
+  // Assumes that respondentDemographics contains only and all the respondents for this question
+  const totalActiveCount = activeRespondents.length;
+  const totalCount = Object.values(respondentDemographics).length;
+
   return html`
-    <div>
-      <h2>${title}</h2>
+    <div class="${s.root}">
+      <h2 class="${s.heading}">${title}</h2>
 
-      <div>
-        <h3>${questionData.title}</h3>
+      <div class="${s.question}">
+        <h3 class="${s.questionTitle}">${questionData.title}</h3>
 
-        <ul class="hello">
-          ${questionData.answers.map(
-            (answer) => html`
-              <li>
-                ${answer.text}: ${answer.respondent_ids.length.toString()}
-              </li>
-            `
+        <ul class="${s.answers}">
+          ${questionData.answers.map((answerData) =>
+            answer(answerData, activeRespondents, totalActiveCount, totalCount)
           )}
         </ul>
       </div>

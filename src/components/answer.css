@@ -1,0 +1,40 @@
+.answer {
+  position: relative;
+  border: 1px solid #e9ecf0; /* TODO: variable */
+  border-bottom-style: none;
+  padding: 12px;
+  display: flex;
+}
+
+.answer:last-of-type {
+  border-bottom-style: solid;
+}
+
+.label {
+  flex: 1;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.label,
+.value {
+  position: relative;
+  z-index: 3;
+}
+
+.marker,
+.track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  background: #f4f6f8;
+  z-index: 1;
+}
+
+.marker {
+  background: none;
+  border-right: 1px dashed #203d66;
+  z-index: 2;
+}

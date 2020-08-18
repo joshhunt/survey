@@ -2,26 +2,65 @@ import "styles/main.css";
 import { getSurveyResults, getFilterDefinition } from "./api";
 import question from "./components/question";
 import filters from "./components/filters";
-
-const questionsContainer = document.querySelector(".js-questions");
-const filtersContainer = document.querySelector(".js-filters");
+import { renderHTML, querySelectorAll } from "./dom";
 
 async function main() {
-  if (!questionsContainer || !filtersContainer) {
-    throw new Error("elements are not defined");
+  const activeFilters: { [name: string]: string } = {};
+
+  function onOptionChange(ev: Event) {
+    if (!ev.target) {
+      throw new Error("missing target on event");
+    }
+    const target = <HTMLInputElement>ev.target;
+
+    const name = target.getAttribute("name");
+    const value = target.getAttribute("value");
+
+    if (!name || !value) {
+      throw new Error("Missing name or value");
+    }
+
+    if (target.checked && activeFilters[name] != value) {
+      activeFilters[name] = value;
+    } else {
+      delete activeFilters[name];
+    }
+
+    renderResults();
+    renderFilters();
   }
 
-  const results = await getSurveyResults();
-  const filterData = await getFilterDefinition();
+  function renderResults() {
+    const questionEl = question(
+      results.title,
+      results.questions[0],
+      results.respondent_demographics,
+      activeFilters
+    );
+    renderHTML(questionEl, ".js-questions");
+  }
 
-  const questionEl = question(results.title, results.questions[0]);
-  questionsContainer.innerHTML = questionEl;
+  function renderFilters() {
+    console.log("rendering with", activeFilters);
+    const filtersEl = filters(
+      filterData.demographics,
+      results.respondent_demographics,
+      activeFilters
+    );
+    renderHTML(filtersEl, ".js-filters");
 
-  const filtersEl = filters(
-    filterData.demographics,
-    results.respondent_demographics
-  );
-  filtersContainer.innerHTML = filtersEl;
+    querySelectorAll(".js-option").forEach((el) => {
+      el.addEventListener("click", onOptionChange);
+    });
+  }
+
+  const [results, filterData] = await Promise.all([
+    getSurveyResults(),
+    getFilterDefinition(),
+  ]);
+
+  renderResults();
+  renderFilters();
 }
 
 main().then(console.log).catch(console.error);

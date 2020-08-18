@@ -3,10 +3,10 @@
 }
 
 .option {
-  background: white;
-  border: 1px solid #e8ecf0;
+  display: flex;
   padding: 8px;
-  display: block;
+  border: 1px solid #e8ecf0;
+  background: white;
   cursor: pointer;
 }
 
@@ -18,6 +18,13 @@
   bottom: 0;
   opacity: 0;
   cursor: pointer;
+}
+
+.label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-right: 8px;
 }
 
 .checkbox:checked + .option {

@@ -14,11 +14,7 @@ export interface Question {
 }
 
 // Maybe this should just be a kv lookup?
-export interface Demographics {
-  gender: string;
-  home_region: string;
-  relationship_status: string;
-}
+export type Demographics = { [key: string]: string };
 
 export interface SurveyResults {
   title: string;

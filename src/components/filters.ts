@@ -27,7 +27,8 @@ function sumDemographics(
 
 export default function filters(
   filterData: Filter[],
-  respondentDemographics: SurveyResults["respondent_demographics"]
+  respondentDemographics: SurveyResults["respondent_demographics"],
+  filters: { [name: string]: string }
 ) {
   console.log({ respondentDemographics });
   const demographicCounts = sumDemographics(respondentDemographics);
@@ -44,7 +45,12 @@ export default function filters(
 
               <div class=${s.options}>
                 ${filter.options.map((data) =>
-                  option(filter.name, data, demographicCounts)
+                  option(
+                    filter.name,
+                    data,
+                    demographicCounts,
+                    filters[filter.name] === data.name
+                  )
                 )}
               </div>
             </div>

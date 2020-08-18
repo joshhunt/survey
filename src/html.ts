@@ -1,4 +1,8 @@
-type InterpolatedValue = string | Array<string>;
+interface StringConvertable {
+  toString: () => string;
+}
+
+type InterpolatedValue = string | StringConvertable | Array<StringConvertable>;
 
 export default function html(
   literals: TemplateStringsArray,
