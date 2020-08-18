@@ -30,7 +30,6 @@ export default function filters(
   respondentDemographics: SurveyResults["respondent_demographics"],
   filters: { [name: string]: string }
 ) {
-  console.log({ respondentDemographics });
   const demographicCounts = sumDemographics(respondentDemographics);
 
   return html`

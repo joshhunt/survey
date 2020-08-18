@@ -3,6 +3,8 @@ import { FilterOption } from "@/types";
 import html from "@/html";
 
 import s from "./option.css";
+import { State, setState } from "@/state";
+import { querySelectorAll } from "@/dom";
 
 export default function option(
   filterName: string,
@@ -31,3 +33,33 @@ export default function option(
     </label>
   </div>`;
 }
+
+const onOptionChange = (state: State) => (ev: Event) => {
+  if (!ev.target) {
+    throw new Error("missing target on event");
+  }
+
+  const activeFilters = { ...state.activeFilters };
+  const target = <HTMLInputElement>ev.target;
+
+  const name = target.getAttribute("name");
+  const value = target.getAttribute("value");
+
+  if (!name || !value) {
+    throw new Error("Missing name or value");
+  }
+
+  if (target.checked && activeFilters[name] != value) {
+    activeFilters[name] = value;
+  } else {
+    delete activeFilters[name];
+  }
+
+  setState({ activeFilters });
+};
+
+export const connectOnOptionChange = (state: State) => {
+  querySelectorAll(".js-option").forEach((el) =>
+    el.addEventListener("click", onOptionChange(state))
+  );
+};

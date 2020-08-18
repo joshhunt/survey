@@ -29,10 +29,4 @@ export default function html(
   result += raw[raw.length - 1];
 
   return result;
-
-  // TODO: Can we keep this returning nodes, and have it work with html.map?
-  // var template = document.createElement("template");
-  // result = result.trim();
-  // template.innerHTML = result;
-  // return template.content.firstChild;
 }
